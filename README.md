@@ -1,3 +1,3 @@
-# Altzone-Clan
+# Altzone-Pallo
 
-Altzone-Clan management demo and test project
+Testialusta pallon 🏐 pompottelulle 🙂
