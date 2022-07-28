@@ -1,3 +1,3 @@
 # Altzone-Pallo
 
-Testialusta pallon 🏐 pompottelulle 🙂
+Testialusta pallon ⚽ pompottelulle 🙂
