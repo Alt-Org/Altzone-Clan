@@ -8,16 +8,17 @@ namespace Ball.Scripts
     [Serializable]
     internal class BallSettings
     {
-        [Header("Time Scale")] public float _timeScale;
-
         [Header("Ball Movement")] public Vector2 _initialDirection;
         public float _requestedVelocity;
         public float _minVelocity;
+        public float _maxVelocity;
         public TMP_Text _ballVelocity;
         public TMP_Text _sliderVelocity;
         public Slider _ballSpeedSlider;
 
         [Header("Layers")] public LayerMask _bounceMask;
+
+        [Header("Time Scale")] public float _timeScale;
     }
 
     public class BallNoPhysics : MonoBehaviour
@@ -32,23 +33,28 @@ namespace Ball.Scripts
         {
             _bounceMaskValue = _settings._bounceMask.value;
             _rigidbody = GetComponent<Rigidbody2D>();
-            _settings._ballSpeedSlider.onValueChanged.AddListener((sliderValue) =>
-            {
-                _settings._requestedVelocity = sliderValue;
-                _rigidbody.velocity = _rigidbody.velocity.normalized * _settings._requestedVelocity;
-                _settings._sliderVelocity.text = $"Speed [{_settings._ballSpeedSlider.minValue:0}-{_settings._ballSpeedSlider.maxValue:0}] {_settings._requestedVelocity:0.0}";
-            });
+            _settings._ballSpeedSlider.minValue = _settings._minVelocity;
+            _settings._ballSpeedSlider.maxValue = _settings._maxVelocity;
+            _settings._ballSpeedSlider.onValueChanged.AddListener(SetSliderVelocity);
         }
 
+        private void SetSliderVelocity(float sliderValue)
+        {
+            _settings._requestedVelocity = sliderValue;
+            _rigidbody.velocity = _rigidbody.velocity.normalized * _settings._requestedVelocity;
+            _settings._sliderVelocity.text = $"Speed [{_settings._ballSpeedSlider.minValue:0}-{_settings._ballSpeedSlider.maxValue:0}] {_settings._requestedVelocity:0.0}";
+        }
+        
         private void OnEnable()
         {
-            _settings._ballSpeedSlider.value = _settings._requestedVelocity;
-            _rigidbody.velocity = _settings._initialDirection.normalized * _settings._requestedVelocity;
             if (_settings._timeScale > 0 && Math.Abs(_settings._timeScale - 1f) > Mathf.Epsilon)
             {
                 Time.timeScale = _settings._timeScale;
                 Debug.Log($"SET Time.timeScale {Time.timeScale:F3}");
             }
+            // Set ball moving
+            _rigidbody.velocity = _settings._initialDirection;
+            SetSliderVelocity(_settings._requestedVelocity);
         }
 
         private void Update()
