@@ -1,5 +1,7 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ball.Scripts
 {
@@ -8,11 +10,16 @@ namespace Ball.Scripts
     {
         [Header("Time Scale")] public float _timeScale;
 
-        [Header("Ball Movement")] public Vector2 _initialVelocity;
+        [Header("Ball Movement")] public Vector2 _initialDirection;
+        public float _requestedVelocity;
         public float _minVelocity;
+        public TMP_Text _ballVelocity;
+        public TMP_Text _sliderVelocity;
+        public Slider _ballSpeedSlider;
 
         [Header("Layers")] public LayerMask _bounceMask;
     }
+
     public class BallNoPhysics : MonoBehaviour
     {
         [SerializeField] private BallSettings _settings;
@@ -25,11 +32,18 @@ namespace Ball.Scripts
         {
             _bounceMaskValue = _settings._bounceMask.value;
             _rigidbody = GetComponent<Rigidbody2D>();
+            _settings._ballSpeedSlider.onValueChanged.AddListener((sliderValue) =>
+            {
+                _settings._requestedVelocity = sliderValue;
+                _rigidbody.velocity = _rigidbody.velocity.normalized * _settings._requestedVelocity;
+                _settings._sliderVelocity.text = $"Speed [{_settings._ballSpeedSlider.minValue:0}-{_settings._ballSpeedSlider.maxValue:0}] {_settings._requestedVelocity:0.0}";
+            });
         }
 
         private void OnEnable()
         {
-            _rigidbody.velocity = _settings._initialVelocity;
+            _settings._ballSpeedSlider.value = _settings._requestedVelocity;
+            _rigidbody.velocity = _settings._initialDirection.normalized * _settings._requestedVelocity;
             if (_settings._timeScale > 0 && Math.Abs(_settings._timeScale - 1f) > Mathf.Epsilon)
             {
                 Time.timeScale = _settings._timeScale;
@@ -37,8 +51,10 @@ namespace Ball.Scripts
             }
         }
 
-        private int _trailCountDown;
-        private float _trailRendererTime;
+        private void Update()
+        {
+            _settings._ballVelocity.text = $"Ball speed min {_settings._minVelocity:0.0} cur {_rigidbody.velocity.magnitude:0.00}";
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -112,9 +128,8 @@ namespace Ball.Scripts
 
         private void Reflect(Vector2 currentVelocity, Vector2 collisionNormal)
         {
-            var speed = currentVelocity.magnitude;
             var direction = Vector2.Reflect(currentVelocity.normalized, collisionNormal);
-            _rigidbody.velocity = direction * Mathf.Max(speed, _settings._minVelocity);
+            _rigidbody.velocity = direction * Mathf.Max(_settings._requestedVelocity, _settings._minVelocity);
         }
     }
 }
