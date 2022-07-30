@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 460750233}
   - component: {fileID: 460750232}
   - component: {fileID: 460750235}
+  - component: {fileID: 460750236}
   m_Layer: 4
   m_Name: Player
   m_TagString: Untagged
@@ -441,7 +442,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pointInputAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   _clickInputAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  _camera: {fileID: 1556371429}
+  _playerMovementReference: {fileID: 460750236}
   _pointerPosition: {x: 0, y: 0}
+--- !u!114 &460750236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460750231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a269731b71b43b29dd6d74b646c3c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 4
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &544060895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,6 +1442,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 16}
   m_EdgeRadius: 0
+--- !u!20 &1556371429 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9100717027624913454, guid: 0e8d701fe26c4f74f9ef3dfc967ab214, type: 3}
+  m_PrefabInstance: {fileID: 9100717028114379345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1789489485
 GameObject:
   m_ObjectHideFlags: 0
