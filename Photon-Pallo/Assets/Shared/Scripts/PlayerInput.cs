@@ -61,6 +61,8 @@ namespace Shared.Scripts
             var worldPosition = _camera.ScreenToWorldPoint(_pointerPosition);
             if (worldPosition.y > _limitWorldYTop)
             {
+                // Handling ambiguities for pointer-type input
+                // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.4/manual/UISupport.html?q=IsPointerOverGameObject#handling-ambiguities-for-pointer-type-input
                 return;
             }
             _playerMovement.MoveTo(worldPosition);
