@@ -1,19 +1,11 @@
 using System.Collections;
+using Shared.Scripts;
 using UnityEngine;
 
 namespace Ball.Scripts
 {
-    public interface IPlayerMovement
+    public class PlayerMovement : PlayerMovementBase
     {
-        void MoveTo(Vector2 position);
-    }
-
-    public class PlayerMovement : MonoBehaviour, IPlayerMovement
-    {
-        [Header("Settings"), SerializeField] private float _speed;
-
-        [Header("Live Data"), SerializeField] private Vector3 _targetPosition;
-
         private Transform _transform;
         private Coroutine _coroutine;
 
@@ -40,7 +32,7 @@ namespace Ball.Scripts
             _coroutine = null;
         }
 
-        void IPlayerMovement.MoveTo(Vector2 position)
+        public override void MoveTo(Vector2 position)
         {
             Debug.Log($"move {position}");
             _targetPosition = position;

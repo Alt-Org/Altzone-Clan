@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Ball.Scripts
+namespace Shared.Scripts
 {
     public class PlayerInput : MonoBehaviour
     {
@@ -9,7 +9,7 @@ namespace Ball.Scripts
         [SerializeField] private InputActionReference _clickInputAction;
 
         [Header("Movement Settings"), SerializeField] private Camera _camera; 
-        [SerializeField] private PlayerMovement _playerMovementReference;
+        [SerializeField] private PlayerMovementBase _playerMovementReference;
         
         [Header("Live Data"), SerializeField] private Vector2 _pointerPosition;
 
