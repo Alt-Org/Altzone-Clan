@@ -442,9 +442,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pointInputAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   _clickInputAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  _limitWorldYTop: 5
   _camera: {fileID: 1556371429}
-  _playerMovementReference: {fileID: 460750236}
   _pointerPosition: {x: 0, y: 0}
+  _playerMovementBase: {fileID: 0}
 --- !u!114 &460750236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,8 +750,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 780}
+  m_SizeDelta: {x: 0, y: -1560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &661778232
 MonoBehaviour:
@@ -785,13 +786,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661778230}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.21568628}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1249,6 +1250,7 @@ GameObject:
   - component: {fileID: 1138298064}
   - component: {fileID: 1138298067}
   - component: {fileID: 1138298066}
+  - component: {fileID: 1138298068}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -1356,13 +1358,10 @@ MonoBehaviour:
     _requestedVelocity: 5
     _minVelocity: 1
     _maxVelocity: 25
-    _ballVelocity: {fileID: 2055195727}
-    _sliderVelocity: {fileID: 607982782}
-    _ballSpeedSlider: {fileID: 1789489487}
-    _bounceMask:
-      serializedVersion: 2
-      m_Bits: 16
-    _timeScale: 0
+  _ballSliderUi: {fileID: 1138298068}
+  _bounceMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!50 &1138298067
 Rigidbody2D:
   serializedVersion: 4
@@ -1384,6 +1383,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1138298068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138298062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736f761c74c14fee82e52236d9836f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ui:
+    _ballVelocity: {fileID: 2055195727}
+    _sliderVelocity: {fileID: 607982782}
+    _ballSpeedSlider: {fileID: 1789489487}
 --- !u!1 &1337022193
 GameObject:
   m_ObjectHideFlags: 0
